@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>DigitVision AI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    #e8f0ff 0%,
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    #f1e8ff 0%,
+                    transparent 35%
+                ),
+                #f7f9fc;
+
+            color: #111827;
+        }
+
+        /* =================================================
+           HEADER
+        ================================================= */
+
+        header {
+            width: 100%;
+            padding: 22px 7%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            background: rgba(255,255,255,0.85);
+
+            backdrop-filter: blur(15px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #111827;
+            color: white;
+
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-tag {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 13px;
+
+            border-radius: 50px;
+
+            background: #ecfdf5;
+            color: #047857;
+
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: #10b981;
+        }
+
+        /* =================================================
+           MAIN
+        ================================================= */
+
+        main {
+            width: min(1150px, 92%);
+
+            margin: 55px auto 70px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 38px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+
+            padding: 7px 14px;
+
+            border-radius: 50px;
+
+            background: #eef2ff;
+            color: #4338ca;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 6vw, 64px);
+
+            line-height: 1.05;
+
+            letter-spacing: -3px;
+
+            font-weight: 850;
+
+            margin-bottom: 17px;
+        }
+
+        .hero h1 span {
+            color: #4f46e5;
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            margin: auto;
+
+            color: #6b7280;
+
+            font-size: 16px;
+
+            line-height: 1.7;
+        }
+
+        /* =================================================
+           APP CARD
+        ================================================= */
+
+        .app-card {
+            display: grid;
+
+            grid-template-columns: 1.05fr 0.95fr;
+
+            gap: 25px;
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 28px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 20px 60px rgba(17,24,39,0.08);
+        }
+
+        /* =================================================
+           UPLOAD AREA
+        ================================================= */
+
+        .upload-panel {
+            min-height: 500px;
+
+            border: 2px dashed #d1d5db;
+
+            border-radius: 22px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 35px;
+
+            transition: 0.25s;
+
+            background: #fafbff;
+        }
+
+        .upload-panel.dragover {
+            border-color: #4f46e5;
+            background: #f5f3ff;
+            transform: scale(1.01);
+        }
+
+        .upload-icon {
+            width: 82px;
+            height: 82px;
+
+            border-radius: 24px;
+
+            background: #eef2ff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 36px;
+
+            margin-bottom: 22px;
+        }
+
+        .upload-panel h2 {
+            font-size: 23px;
+            margin-bottom: 9px;
+        }
+
+        .upload-panel p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .browse-btn {
+            margin-top: 24px;
+
+            border: none;
+
+            padding: 13px 24px;
+
+            border-radius: 12px;
+
+            background: #111827;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .browse-btn:hover {
+            transform: translateY(-2px);
+            background: #374151;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .formats {
+            margin-top: 17px;
+
+            font-size: 12px;
+
+            color: #9ca3af;
+        }
+
+        /* =================================================
+           RESULT PANEL
+        ================================================= */
+
+        .result-panel {
+            border-radius: 22px;
+
+            background: #111827;
+
+            color: white;
+
+            padding: 30px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            min-height: 500px;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .result-header h2 {
+            font-size: 18px;
+        }
+
+        .ai-label {
+            font-size: 11px;
+
+            padding: 6px 10px;
+
+            border-radius: 50px;
+
+            background: rgba(255,255,255,0.1);
+
+            color: #d1d5db;
+        }
+
+        .preview-box {
+            flex: 1;
+
+            min-height: 260px;
+
+            border-radius: 18px;
+
+            background: #1f2937;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            overflow: hidden;
+
+            margin-bottom: 22px;
+        }
+
+        .preview-box img {
+            max-width: 100%;
+            max-height: 280px;
+
+            object-fit: contain;
+
+            display: none;
+        }
+
+        .preview-placeholder {
+            text-align: center;
+            color: #6b7280;
+        }
+
+        .preview-placeholder .number {
+            font-size: 75px;
+            font-weight: 800;
+
+            opacity: 0.15;
+        }
+
+        /* =================================================
+           PREDICTION
+        ================================================= */
+
+        .prediction-result {
+            display: none;
+        }
+
+        .prediction-title {
+            color: #9ca3af;
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 5px;
+        }
+
+        .prediction-number {
+            font-size: 76px;
+
+            line-height: 1;
+
+            font-weight: 850;
+
+            margin-bottom: 18px;
+        }
+
+        .confidence-row {
+            display: flex;
+
+            justify-content: space-between;
+
+            font-size: 13px;
+
+            margin-bottom: 8px;
+        }
+
+        .confidence-row span:last-child {
+            font-weight: 700;
+        }
+
+        .progress {
+            height: 9px;
+
+            border-radius: 20px;
+
+            background: #374151;
+
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+
+            width: 0%;
+
+            background: #818cf8;
+
+            border-radius: inherit;
+
+            transition: width 0.7s ease;
+        }
+
+        .reset-btn {
+            margin-top: 20px;
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #374151;
+
+            background: transparent;
+
+            color: #d1d5db;
+
+            border-radius: 11px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: #1f2937;
+            color: white;
+        }
+
+        /* =================================================
+           LOADING
+        ================================================= */
+
+        .loading {
+            display: none;
+
+            text-align: center;
+
+            padding: 20px;
+        }
+
+        .spinner {
+            width: 32px;
+            height: 32px;
+
+            border: 3px solid #374151;
+
+            border-top-color: #818cf8;
+
+            border-radius: 50%;
+
+            animation: spin 0.8s linear infinite;
+
+            margin: auto auto 12px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* =================================================
+           FOOTER
+        ================================================= */
+
+        footer {
+            text-align: center;
+
+            color: #9ca3af;
+
+            font-size: 12px;
+
+            margin-top: 30px;
+        }
+
+        /* =================================================
+           RESPONSIVE
+        ================================================= */
+
+        @media (max-width: 850px) {
+
+            .app-card {
+                grid-template-columns: 1fr;
+            }
+
+            .upload-panel,
+            .result-panel {
+                min-height: 430px;
+            }
+
+            header {
+                padding: 18px 5%;
+            }
+
+            .status {
+                display: none;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            main {
+                margin-top: 35px;
+            }
+
+            .app-card {
+                padding: 14px;
+                border-radius: 20px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .upload-panel {
+                padding: 25px 15px;
+            }
+
+            .result-panel {
+                padding: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            7
+        </div>
+
+        <div>
+
+            <div class="brand-name">
+                DigitVision AI
+            </div>
+
+            <div class="brand-tag">
+                Handwritten Digit Recognition
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="status">
+
+        <div class="status-dot"></div>
+
+        AI Model Online
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+
+    <section class="hero">
+
+        <div class="hero-badge">
+            AI-POWERED RECOGNITION
+        </div>
+
+        <h1>
+            Recognize Any
+            <span>Digit.</span>
+        </h1>
+
+        <p>
+            Upload a handwritten digit and let our
+            neural network analyze it instantly with
+            high-confidence prediction.
+        </p>
+
+    </section>
+
+
+    <!-- =================================================
+         APPLICATION
+    ================================================= -->
+
+    <section class="app-card">
+
+
+        <!-- UPLOAD -->
+
+        <div
+            class="upload-panel"
+            id="uploadPanel"
+        >
+
+            <div class="upload-icon">
+                ✦
+            </div>
+
+            <h2>
+                Upload your digit
+            </h2>
+
+            <p>
+                Drag & drop your image here<br>
+                or select an image from your device.
+            </p>
+
+
+            <button
+                class="browse-btn"
+                id="browseBtn"
+            >
+                Choose Image
+            </button>
+
+
+            <input
+                type="file"
+                id="fileInput"
+                accept="image/*"
+            >
+
+
+            <div class="formats">
+                PNG, JPG, JPEG • One digit per image
+            </div>
+
+        </div>
+
+
+        <!-- RESULT -->
+
+        <div class="result-panel">
+
+
+            <div class="result-header">
+
+                <h2>
+                    AI Analysis
+                </h2>
+
+                <div class="ai-label">
+                    CNN MODEL
+                </div>
+
+            </div>
+
+
+            <div class="preview-box">
+
+                <div
+                    class="preview-placeholder"
+                    id="placeholder"
+                >
+
+                    <div class="number">
+                        ?
+                    </div>
+
+                    <div>
+                        Your image preview
+                    </div>
+
+                </div>
+
+
+                <img
+                    id="previewImage"
+                    alt="Uploaded digit"
+                >
+
+            </div>
+
+
+            <!-- LOADING -->
+
+            <div
+                class="loading"
+                id="loading"
+            >
+
+                <div class="spinner"></div>
+
+                <div>
+                    Analyzing digit...
+                </div>
+
+            </div>
+
+
+            <!-- RESULT -->
+
+            <div
+                class="prediction-result"
+                id="predictionResult"
+            >
+
+                <div class="prediction-title">
+                    Predicted Digit
+                </div>
+
+                <div
+                    class="prediction-number"
+                    id="predictionNumber"
+                >
+                    -
+                </div>
+
+
+                <div class="confidence-row">
+
+                    <span>
+                        Confidence
+                    </span>
+
+                    <span id="confidenceText">
+                        0%
+                    </span>
+
+                </div>
+
+
+                <div class="progress">
+
+                    <div
+                        class="progress-bar"
+                        id="progressBar"
+                    ></div>
+
+                </div>
+
+
+                <button
+                    class="reset-btn"
+                    id="resetBtn"
+                >
+                    Analyze Another Image
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <footer>
+        DigitVision AI • Neural Network Digit Recognition
+    </footer>
+
+
+</main>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+    const fileInput =
+        document.getElementById("fileInput");
+
+    const browseBtn =
+        document.getElementById("browseBtn");
+
+    const uploadPanel =
+        document.getElementById("uploadPanel");
+
+    const previewImage =
+        document.getElementById("previewImage");
+
+    const placeholder =
+        document.getElementById("placeholder");
+
+    const loading =
+        document.getElementById("loading");
+
+    const predictionResult =
+        document.getElementById("predictionResult");
+
+    const predictionNumber =
+        document.getElementById("predictionNumber");
+
+    const confidenceText =
+        document.getElementById("confidenceText");
+
+    const progressBar =
+        document.getElementById("progressBar");
+
+    const resetBtn =
+        document.getElementById("resetBtn");
+
+
+    // ====================================================
+    // CHOOSE IMAGE
+    // ====================================================
+
+    browseBtn.addEventListener(
+        "click",
+        () => {
+
+            fileInput.click();
+
+        }
+    );
+
+
+    // ====================================================
+    // FILE SELECTED
+    // ====================================================
+
+    fileInput.addEventListener(
+        "change",
+        (event) => {
+
+            const file =
+                event.target.files[0];
+
+            if (file) {
+
+                processFile(file);
+
+            }
+
+        }
+    );
+
+
+    // ====================================================
+    // DRAG ENTER
+    // ====================================================
+
+    uploadPanel.addEventListener(
+        "dragover",
+        (event) => {
+
+            event.preventDefault();
+
+            uploadPanel.classList.add(
+                "dragover"
+            );
+
+        }
+    );
+
+
+    // ====================================================
+    // DRAG LEAVE
+    // ====================================================
+
+    uploadPanel.addEventListener(
+        "dragleave",
+        () => {
+
+            uploadPanel.classList.remove(
+                "dragover"
+            );
+
+        }
+    );
+
+
+    // ====================================================
+    // DROP
+    // ====================================================
+
+    uploadPanel.addEventListener(
+        "drop",
+        (event) => {
+
+            event.preventDefault();
+
+            uploadPanel.classList.remove(
+                "dragover"
+            );
+
+            const file =
+                event.dataTransfer.files[0];
+
+            if (
+                file &&
+                file.type.startsWith("image/")
+            ) {
+
+                processFile(file);
+
+            }
+
+        }
+    );
+
+
+    // ====================================================
+    // PROCESS FILE
+    // ====================================================
+
+    function processFile(file) {
+
+        if (!file.type.startsWith("image/")) {
+
+            alert(
+                "Please select an image file."
+            );
+
+            return;
+
+        }
+
+
+        // Show preview
+
+        const imageURL =
+            URL.createObjectURL(file);
+
+        previewImage.src = imageURL;
+
+        previewImage.style.display =
+            "block";
+
+        placeholder.style.display =
+            "none";
+
+
+        // Send to backend
+
+        predictDigit(file);
+
+    }
+
+
+    // ====================================================
+    // SEND IMAGE TO FLASK
+    // ====================================================
+
+    async function predictDigit(file) {
+
+        loading.style.display =
+            "block";
+
+        predictionResult.style.display =
+            "none";
+
+
+        const formData =
+            new FormData();
+
+        formData.append(
+            "image",
+            file
+        );
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/predict",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!data.success) {
+
+                throw new Error(
+                    data.error ||
+                    "Prediction failed."
+                );
+
+            }
+
+
+            // Show result
+
+            predictionNumber.textContent =
+                data.digit;
+
+
+            confidenceText.textContent =
+                data.confidence + "%";
+
+
+            progressBar.style.width =
+                data.confidence + "%";
+
+
+            predictionResult.style.display =
+                "block";
+
+
+        }
+
+        catch (error) {
+
+            alert(
+                "Prediction error: " +
+                error.message
+            );
+
+        }
+
+        finally {
+
+            loading.style.display =
+                "none";
+
+        }
+
+    }
+
+
+    // ====================================================
+    // RESET
+    // ====================================================
+
+    resetBtn.addEventListener(
+        "click",
+        () => {
+
+            fileInput.value = "";
+
+            previewImage.src = "";
+
+            previewImage.style.display =
+                "none";
+
+            placeholder.style.display =
+                "block";
+
+            predictionResult.style.display =
+                "none";
+
+            progressBar.style.width =
+                "0%";
+
+            confidenceText.textContent =
+                "0%";
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>
